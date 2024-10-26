@@ -26,3 +26,23 @@ The dataset used in this project contains the following features:
 * scripts/: Python scripts automating the ETL pipeline and data validation.
 * visualizations/: Generated charts and graphs from the analysis.
 * README.md: Project documentation and objectives (this file).
+## Getting Started
+1. Clone this repo and install the required packages:
+   git clone https://github.com/yourusername/retail-sales-data-engineering.git
+   cd retail-sales-data-engineering
+   pip install -r requirements.txt
+2. Download the dataset from Kaggle or use the data file provided in the data/ directory.
+3. Open the notebooks/ directory and follow the steps in each notebook to run the ETL process and data visualizations.
+## Usage
+* Data Cleaning: Run notebooks/01_data_cleaning.ipynb to load and clean the raw dataset.
+* Data Transformation: Use notebooks/02_data_transformation.ipynb to apply feature engineering and data validation.
+* Data Analysis & Visualization: Execute notebooks/03_data_analysis.ipynb for aggregated reports and visualizations.
+## Technologies
+* Python: Data analysis and pipeline automation
+* Pandas: Data manipulation and cleaning
+* Matplotlib / Seaborn: Data visualization
+* SQL: Optional data storage and querying
+## Future Work
+* Integrate data warehousing solutions for large-scale data management.
+* Set up an Airflow pipeline for ETL automation and error handling.
+* Implement machine learning models for predictive analytics on customer lifetime value and sales forecasting.
