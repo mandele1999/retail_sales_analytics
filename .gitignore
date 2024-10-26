@@ -1,0 +1,10 @@
+# Ignore environment and API key files
+.env
+config.py
+
+# Ignore Jupyter Notebook checkpoints 
+.ipynb_checkpoints/
+
+#Ignore data files
+*.csv
+*.db
