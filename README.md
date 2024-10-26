@@ -28,7 +28,7 @@ The dataset used in this project contains the following features:
 * README.md: Project documentation and objectives (this file).
 ## Getting Started
 1. Clone this repo and install the required packages:
-   git clone [https://github.com/yourusername/retail-sales-data-engineering.git](https://github.com/mandele1999/retail_sales_analytics.git)
+   git clone https://github.com/mandele1999/retail_sales_analytics.git
    cd retail-sales-data-engineering
    pip install -r requirements.txt
 2. Download the dataset from Kaggle or use the data file provided in the data/ directory.
