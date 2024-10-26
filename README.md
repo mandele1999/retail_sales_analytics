@@ -1,4 +1,4 @@
-#  Retail Sales Data Engineering Project 
+# Retail Sales Data Engineering Project 
 ## Project Overview
 This project is focused on developing a comprehensive data engineering workflow for a retail sales dataset, from data ingestion to analysis and visualization. We use a structured ETL (Extract, Transform, Load) pipeline to clean, transform, and aggregate the data to uncover insights into customer purchasing behavior, product popularity, and overall sales trends.
 
