@@ -3,7 +3,7 @@
 This project is focused on developing a comprehensive data engineering workflow for a retail sales dataset, from data ingestion to analysis and visualization. We use a structured ETL (Extract, Transform, Load) pipeline to clean, transform, and aggregate the data to uncover insights into customer purchasing behavior, product popularity, and overall sales trends.
 
 ## Objectives
-1. * Data Exploration and Cleaning *: Load the dataset, inspect and clean it by handling missing values, correcting data types, and ensuring data integrity.
+1. Data Exploration and Cleaning : Load the dataset, inspect and clean it by handling missing values, correcting data types, and ensuring data integrity.
 2. Data Transformation: Apply feature engineering techniques to enhance the dataset with additional insights, such as purchase patterns by day of the week, seasonality, and consistency checks.
 3. Data Storage and Management: (Optional) Store the cleaned and processed data in an SQL database to simulate a real-world data warehousing solution.
 4. Data Aggregation and Analysis: Analyze key performance indicators (KPIs) such as total sales, customer segmentation, and product popularity across various dimensions.
