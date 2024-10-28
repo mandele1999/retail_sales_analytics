@@ -12,7 +12,7 @@ This project is focused on developing a comprehensive data engineering workflow 
 ## Dataset
 The dataset used in this project contains the following features:
 
-* **Transaction ID**: Unique identifier for each transaction
+* *Transaction ID*: Unique identifier for each transaction
 * **Date**: Transaction date
 * **Customer ID**: Unique identifier for each customer
 * **Gender**: The gender of the customer
