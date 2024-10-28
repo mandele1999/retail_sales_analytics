@@ -15,7 +15,7 @@ def clean_data(df):
     # Handling missing data
     df.dropna(inplace=True)
     # Ensure correct data types
-    df['Transaction Id'] = df['Transaction Id'].astype(int)
+    df['Transaction ID'] = df['Transaction ID'].astype(int)
     df['Date'] = pd.to_datetime(df['Date'])
     df['Customer ID'] = df['Customer ID'].astype(str)
     df['Gender'] = df['Gender'].astype('category')
