@@ -25,7 +25,7 @@ The dataset used in this project contains the following features:
 * **notebooks**/: Jupyter notebooks documenting each step of the ETL process, from data exploration to visualization.
 * **scripts**/: Python scripts automating the ETL pipeline and data validation.
 * **visualizations**/: Generated charts and graphs from the analysis.
-* **README.md**: Project documentation and objectives (this file).
+* **README.md**: Project documentation and objectives.
 ## Getting Started
 1. Clone this repo and install the required packages:
    git clone https://github.com/mandele1999/retail_sales_analytics.git
