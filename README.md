@@ -17,14 +17,14 @@ This project is focused on developing a comprehensive data engineering workflow 
 
 The dataset used in this project contains the following features:
 
-0 **Transaction ID**: Unique identifier for each transaction
-0 **Date**: Transaction date
-0 **Customer ID**: Unique identifier for each customer
-0 **Gender**: The gender of the customer
-0 **Product Category**: Category of the purchased product
-0 **Quantity**: Number of items purchased in the transaction
-0 **Price per Unit**: Price of each item
-0 **Total Amount**: Total amount spent in each transaction
+1. **Transaction ID**: Unique identifier for each transaction
+1. **Date**: Transaction date
+1. **Customer ID**: Unique identifier for each customer
+1. **Gender**: The gender of the customer
+1. **Product Category**: Category of the purchased product
+1. **Quantity**: Number of items purchased in the transaction
+1. **Price per Unit**: Price of each item
+1. **Total Amount**: Total amount spent in each transaction
 
 ## Project Structure
 
