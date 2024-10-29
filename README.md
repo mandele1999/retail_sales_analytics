@@ -11,7 +11,7 @@ This project is focused on developing a comprehensive data engineering workflow 
 3. **Data Storage and Management**: (Optional) Store the cleaned and processed data in an SQL database to simulate a real-world data warehousing solution.
 4. **Data Aggregation and Analysis**: Analyze key performance indicators (KPIs) such as total sales, customer segmentation, and product popularity across various dimensions.
 5. **Data Visualization**: Generate insightful visualizations to communicate trends and findings effectively.
-6. **ETL Automation and Monitoring**: Set up automation to handle the ETL process on a scheduled basis and monitor the workflow to detect issues in real time.
+6. **ETL Automation and Monitoring**: Set up automation to handle the ETL process on a scheduled basis and monitor the workflow to detect real-time issues.
 
 ## Dataset
 
@@ -38,9 +38,9 @@ The dataset used in this project contains the following features:
 
 1. Clone this repo and install the required packages:
    
-   git clone <https://github.com/mandele1999/retail_sales_analytics.git>
-   cd retail-sales-data-engineering
-   pip install -r requirements.txt
+   - git clone <https://github.com/mandele1999/retail_sales_analytics.git>
+   - cd retail-sales-data-engineering
+   - pip install -r requirements.txt
    
 3. Download the dataset from Kaggle or use the data file provided in the data/ directory.
 4. Open the notebooks/ directory and follow the steps in each notebook to run the ETL process and data visualizations.
