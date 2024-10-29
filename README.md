@@ -37,13 +37,13 @@ The dataset used in this project contains the following features:
 ## Getting Started
 
 1. Clone this repo and install the required packages:
-   
-   - git clone <https://github.com/mandele1999/retail_sales_analytics.git>
-   - cd retail-sales-data-engineering
-   - pip install -r requirements.txt
-   
-3. Download the dataset from Kaggle or use the data file provided in the data/ directory.
-4. Open the notebooks/ directory and follow the steps in each notebook to run the ETL process and data visualizations.
+
+   * git clone <https://github.com/mandele1999/retail_sales_analytics.git>
+   * cd retail-sales-data-engineering
+   * pip install -r requirements.txt
+
+1. Download the dataset from Kaggle or use the data file provided in the data/ directory.
+1. Open the notebooks/ directory and follow the steps in each notebook to run the ETL process and data visualizations.
 
 ## Usage
 
