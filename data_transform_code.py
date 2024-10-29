@@ -1,9 +1,10 @@
 import pandas as pd
+import os
 
 # Function to load data
 def load_data(filepath):
     """
-    Load data from a specified file path.
+    Load data from a specified file path,handling both CSV and Pickle formats.
 
     Args:
     - filepath (str): Path to the data file.
@@ -12,7 +13,15 @@ def load_data(filepath):
     - DataFrame: Loaded data as a pandas DataFrame.
     """
     try:
-        df = pd.read_csv(filepath)
+        _, file_extension = os.path.splitext(filepath)
+        if file_extension == '.csv':
+            df = pd.read_csv(filepath)
+        elif file_extension == '.pkl':
+            df = pd.read_pickle(filepath)
+        else:
+            print(f"Unsupported file format: {file_extension}")
+            return None
+        
         if df is not None:
             print("Data loaded successfully.")
         else:
@@ -164,7 +173,7 @@ def save_transformed_data(df, transformed_filepath):
     - transformed_filepath (str): Path to save the transformed data.
     """
     try:
-        df.to_pickle('transform_data.pkl')
+        df.to_pickle(transformed_filepath)
         print("Transformed data saved successfully.")
     except Exception as e:
         print(f"Error saving transformed data: {e}")
@@ -184,14 +193,14 @@ def main(input_filepath, cleaned_filepath, transformed_filepath):
             
             # Load cleaned data for transformation
             cleaned_df = load_data(cleaned_filepath)
+            if cleaned_df is not None:
+                # Transform the data
+                transformed_df = transform_data(cleaned_df)
             
-            # Transform the data
-            transformed_df = transform_data(cleaned_df)
-            
-            # Validate transformed data
-            if validate_transformed_data(transformed_df):
+                # Validate transformed data
+                if validate_transformed_data(transformed_df):
                 # Save the transformed data
-                save_transformed_data(transformed_df, transformed_filepath)
+                    save_transformed_data(transformed_df, transformed_filepath)
 
 if __name__ == "__main__":
     # Define file paths
