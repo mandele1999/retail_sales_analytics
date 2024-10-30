@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 import time  # Importing time for tracking duration
-from logger_setup import logger  # Importing the configured logger
+from Scripts.logger_setup import logger  # Importing the configured logger
 
 # Global variables for monitoring
 metrics = {
