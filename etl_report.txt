@@ -1,0 +1,9 @@
+Automated ETL Pipeline Report
+==============================
+
+Success Rates:
+![Success Rates](success_rates.png)
+
+Trends Over Time:
+![Trends](trends.png)
+

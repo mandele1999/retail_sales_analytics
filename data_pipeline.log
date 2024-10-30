@@ -21,3 +21,18 @@
 2024-10-30 12:25:57,414 - INFO - Load Successes: 2
 2024-10-30 12:25:57,414 - INFO - Clean Successes: 1
 2024-10-30 12:25:57,415 - INFO - Transform Successes: 1
+2024-10-30 16:03:38,950 - INFO - Data loaded successfully.
+2024-10-30 16:03:39,294 - INFO - Data cleaned successfully.
+2024-10-30 16:03:39,344 - INFO - Cleaned data validation passed.
+2024-10-30 16:03:39,361 - INFO - Cleaned data saved successfully.
+2024-10-30 16:03:39,376 - INFO - Data loaded successfully.
+2024-10-30 16:03:39,417 - INFO - Data transformed successfully.
+2024-10-30 16:03:39,418 - INFO - Transformed data validation passed.
+2024-10-30 16:03:39,420 - INFO - Transformed data saved successfully.
+2024-10-30 16:03:39,420 - INFO - Monitoring Results:
+2024-10-30 16:03:39,421 - INFO - Load Times: [0.0955207347869873, 0.014991283416748047]
+2024-10-30 16:03:39,421 - INFO - Clean Times: [0.34343481063842773]
+2024-10-30 16:03:39,421 - INFO - Transform Times: [0.03931140899658203]
+2024-10-30 16:03:39,422 - INFO - Load Successes: 2
+2024-10-30 16:03:39,422 - INFO - Clean Successes: 1
+2024-10-30 16:03:39,422 - INFO - Transform Successes: 1
