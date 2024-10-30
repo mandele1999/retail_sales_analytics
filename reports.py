@@ -1,13 +1,17 @@
 import pandas as pd
 import os
 import time  # Importing time for tracking duration
-from Scripts.logger_setup import logger  # Importing the configured logger
+from logger_setup import logger  # Importing the configured logger
+import matplotlib.pyplot as plt 
+from datetime import datetime
+import time
 
 # Global variables for monitoring
 metrics = {
     'load_time': [],
     'clean_time': [],
     'transform_time': [],
+    'dates': [],  # List to store the dates for tracking ETL run times
     'load_success': 0,
     'clean_success': 0,
     'transform_success': 0
@@ -17,6 +21,10 @@ metrics = {
 def load_data(filepath):
     start_time = time.time()  # Start timing
     try:
+        directory = os.path.dirname(filepath)
+        if directory:  # Only try to create directory if it exists in the path
+            os.makedirs(directory, exist_ok=True)
+            
         _, file_extension = os.path.splitext(filepath)
         if file_extension == '.csv':
             df = pd.read_csv(filepath)
@@ -65,8 +73,8 @@ def clean_data(df):
         logger.error(f"Error cleaning data: {e}")
     finally:
         metrics['clean_time'].append(time.time() - start_time)  # Log clean time
-        return df
-    
+        return df   
+     
 # Function to validate cleaned data
 def validate_cleaned_data(df):
     """
@@ -193,38 +201,106 @@ def print_monitoring_results():
     logger.info(f"Clean Successes: {metrics['clean_success']}")
     logger.info(f"Transform Successes: {metrics['transform_success']}")
 
-# Main function to run the data pipeline
-def main(input_filepath, cleaned_filepath, transformed_filepath):
+
+# Functions to Plot visualizations
+def plot_success_rates(metrics):
+    categories = ['Load Success', 'Clean Success', 'Transform Success']
+    success_counts = [metrics['load_success'], metrics['clean_success'], metrics['transform_success']]
+    
+    plt.bar(categories, success_counts, color=['blue', 'orange', 'green'])
+    plt.title('Success Rates of ETL Pipeline')
+    plt.ylabel('Number of Successful Processes')
+    
+    success_rates_path = 'reports/success_rates.png'
+    # Create the 'reports' directory if it doesn't exist
+    os.makedirs(os.path.dirname(success_rates_path), exist_ok=True)
+
+    plt.savefig(success_rates_path) # Save the plot
+    plt.show()  # Debugging: Verify plot display
+    plt.close() # Close the plot to free memory
+    return success_rates_path
+
+def plot_trends(metrics):
+    plt.plot(metrics['dates'], metrics['load_time'], label='Load Time', marker='o')
+    plt.plot(metrics['dates'], metrics['clean_time'], label='Clean Time', marker='o')
+    plt.plot(metrics['dates'], metrics['transform_time'], label='Transform Time', marker='o')
+
+    plt.title('ETL Process Time Trends')
+    plt.xlabel('Date')
+    plt.ylabel('Time (seconds)')
+    plt.legend()
+
+    trends_path = 'reports/trends.png'
+    plt.savefig(trends_path)
+    plt.show()  # Debugging: Verify plot display
+    plt.close()
+    return trends_path
+
+# Generating HMTL report
+def generate_report(report_filepath, success_rates_path, trends_path):
+    os.makedirs(os.path.dirname(report_filepath), exist_ok=True)
+    with open(report_filepath, 'w') as f:
+        f.write("<html><body><h1>Automated ETL Pipeline Report</h1>\n")
+        f.write("<h2>Success Rates:</h2>\n")
+        f.write(f"<img src='{success_rates_path}' alt='Success Rates'>\n")
+        f.write("<h2>Trends Over Time:</h2>\n")
+        f.write(f"<img src='{trends_path}' alt='Trends'>\n")
+        f.write("</body></html>")
+
+
+
+def main(input_filepath, cleaned_filepath, transformed_filepath, report_filepath):
     # Load the initial data
+    start_time = time.time()  # Start timer for loading
     df = load_data(input_filepath)
     if df is not None:
+        load_time = time.time() - start_time  # Calculate load time
+        metrics['load_time'].append(load_time)  # Append load time
+        metrics['dates'].append(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))  # Capture load date
+
         # Clean the data
+        start_time = time.time()  # Start timer for cleaning
         cleaned_df = clean_data(df)
         
         # Validate cleaned data
         if validate_cleaned_data(cleaned_df):
             # Save cleaned data
             save_cleaned_data(cleaned_df, cleaned_filepath)
+            clean_time = time.time() - start_time  # Calculate clean time
+            metrics['clean_time'].append(clean_time)  # Append clean time
+            metrics['dates'].append(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))  # Capture clean date
             
             # Load cleaned data for transformation
             cleaned_df = load_data(cleaned_filepath)
             if cleaned_df is not None:
                 # Transform the data
+                start_time = time.time()  # Start timer for transformation
                 transformed_df = transform_data(cleaned_df)
                 
                 # Validate transformed data
                 if validate_transformed_data(transformed_df):
                     # Save the transformed data
                     save_transformed_data(transformed_df, transformed_filepath)
+                    transform_time = time.time() - start_time  # Calculate transform time
+                    metrics['transform_time'].append(transform_time)  # Append transform time
+                    metrics['dates'].append(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))  # Capture transform date
 
     # Print monitoring results
     print_monitoring_results()
+
+    # Plot and generate report
+    success_rates_path = plot_success_rates(metrics)
+    trends_path = plot_trends(metrics)
+    generate_report(report_filepath, success_rates_path, trends_path)
+    logger.info("ETL process and report generation completed.")
+
 
 if __name__ == "__main__":
     # Define file paths
     input_filepath = 'data/retail_sales_dataset.csv'
     cleaned_filepath = 'cleaned_data.pkl'
     transformed_filepath = 'transform_data.pkl'
+    report_filepath = 'etl_report.html'
     
     # Run the data pipeline
-    main(input_filepath, cleaned_filepath, transformed_filepath)
+    main(input_filepath, cleaned_filepath, transformed_filepath, report_filepath)

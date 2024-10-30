@@ -1,17 +1,16 @@
 import pandas as pd
 import os
-import time  # Importing time for tracking duration
-from Scripts.logger_setup import logger  # Importing the configured logger
-import matplotlib.pyplot as plt 
-from datetime import datetime
 import time
+from logger_setup import logger
+import matplotlib.pyplot as plt
+from datetime import datetime
 
 # Global variables for monitoring
 metrics = {
     'load_time': [],
     'clean_time': [],
     'transform_time': [],
-    'dates': [],  # List to store the dates for tracking ETL run times
+    'dates': [],
     'load_success': 0,
     'clean_success': 0,
     'transform_success': 0
@@ -19,12 +18,12 @@ metrics = {
 
 # Function to load data
 def load_data(filepath):
-    start_time = time.time()  # Start timing
+    start_time = time.time()
     try:
         directory = os.path.dirname(filepath)
-        if directory:  # Only try to create directory if it exists in the path
+        if directory:
             os.makedirs(directory, exist_ok=True)
-            
+
         _, file_extension = os.path.splitext(filepath)
         if file_extension == '.csv':
             df = pd.read_csv(filepath)
@@ -33,7 +32,7 @@ def load_data(filepath):
         else:
             logger.warning(f"Unsupported file format: {file_extension}")
             return None
-        
+
         if df is not None:
             logger.info("Data loaded successfully.")
             metrics['load_success'] += 1
@@ -44,17 +43,13 @@ def load_data(filepath):
         logger.error(f"Error loading data: {e}")
         return None
     finally:
-        metrics['load_time'].append(time.time() - start_time)  # Log load time
+        metrics['load_time'].append(time.time() - start_time)
 
 # Function for cleaning the data
 def clean_data(df):
-    start_time = time.time()  # Start timing
+    start_time = time.time()
     try:
-        # Handle missing values
         df.dropna(inplace=True)
-
-        # Ensure correct data types
-        # (Same cleaning code as before)
         df['Transaction ID'] = df['Transaction ID'].astype(int)
         df['Date'] = pd.to_datetime(df['Date'])
         df['Customer ID'] = df['Customer ID'].astype(str)
@@ -63,36 +58,22 @@ def clean_data(df):
         df['Quantity'] = df['Quantity'].astype(int)
         df['Price per Unit'] = df['Price per Unit'].astype(float)
         df['Total Amount'] = df['Total Amount'].astype(float)
-
-        # Value constraints
         df = df[(df['Quantity'] > 0) & (df['Price per Unit'] > 0)]
-
         logger.info("Data cleaned successfully.")
         metrics['clean_success'] += 1
     except Exception as e:
         logger.error(f"Error cleaning data: {e}")
     finally:
-        metrics['clean_time'].append(time.time() - start_time)  # Log clean time
-        return df   
-     
+        metrics['clean_time'].append(time.time() - start_time)
+        return df
+
 # Function to validate cleaned data
 def validate_cleaned_data(df):
-    """
-    Validates the cleaned data to ensure it meets necessary conditions.
-
-    Args:
-    - df (DataFrame): The cleaned DataFrame.
-
-    Returns:
-    - bool: True if validation passes, False otherwise.
-    """
     try:
-        # Check data types
         assert df['Transaction ID'].dtype == int, "Transaction Id should be integer"
         assert pd.api.types.is_datetime64_any_dtype(df['Date']), "Date should be datetime"
         assert df['Quantity'].min() > 0, "Quantity should be positive"
         assert df['Price per Unit'].min() > 0, "Price per Unit should be positive"
-        
         logger.info("Cleaned data validation passed.")
         return True
     except AssertionError as e:
@@ -101,30 +82,20 @@ def validate_cleaned_data(df):
 
 # Function to save cleaned data
 def save_cleaned_data(df, cleaned_filepath):
-    """
-    Save the cleaned data to a specified file path.
-
-    Args:
-    - df (DataFrame): The DataFrame to save.
-    - cleaned_filepath (str): Path to save the cleaned data.
-    """
     try:
         df.to_pickle(cleaned_filepath)
         logger.info("Cleaned data saved successfully.")
     except Exception as e:
-        logger.error(f"Error saving cleaned data: {e}")    
+        logger.error(f"Error saving cleaned data: {e}")
 
 # Function for transforming the data
 def transform_data(df):
-    start_time = time.time()  # Start timing
+    start_time = time.time()
     if df is None:
         logger.error("Error: DataFrame is None. Transformation skipped.")
         return None
     try:
-        # (Transformation code as before)
-        # Create a Day of Week column
         df['Day of Week'] = df['Date'].dt.day_name()
-        # Example transformation: Add a 'Season' column based on 'Date'
         df['Month'] = df['Date'].dt.month
 
         def get_season(month):
@@ -138,37 +109,21 @@ def transform_data(df):
                 return 'Fall'
 
         df['Season'] = df['Month'].apply(get_season)
-
-        # Add a derived column, Revenue
-        df['Revenue'] = df['Quantity'] * df['Price per Unit']        
-
+        df['Revenue'] = df['Quantity'] * df['Price per Unit']
         logger.info("Data transformed successfully.")
         metrics['transform_success'] += 1
     except Exception as e:
         logger.error(f"Error transforming data: {e}")
     finally:
-        metrics['transform_time'].append(time.time() - start_time)  # Log transform time
+        metrics['transform_time'].append(time.time() - start_time)
         return df
 
 # Function to validate transformed data
 def validate_transformed_data(df):
-    """
-    Validates the transformed data to ensure transformations were successful.
-
-    Args:
-    - df (DataFrame): The transformed DataFrame.
-
-    Returns:
-    - bool: True if validation passes, False otherwise.
-    """
     try:
-        # Check that 'Revenue' and 'Season' columns are present
         assert 'Revenue' in df.columns, "Revenue column is missing"
         assert 'Season' in df.columns, "Season column is missing"
-        
-        # Check that 'Revenue' values are positive
         assert df['Revenue'].min() >= 0, "Revenue should be non-negative"
-        
         logger.info("Transformed data validation passed.")
         return True
     except AssertionError as e:
@@ -177,19 +132,11 @@ def validate_transformed_data(df):
 
 # Function to save transformed data
 def save_transformed_data(df, transformed_filepath):
-    """
-    Save the transformed data to a specified file path.
-
-    Args:
-    - df (DataFrame): The DataFrame to save.
-    - transformed_filepath (str): Path to save the transformed data.
-    """
     try:
         df.to_pickle(transformed_filepath)
         logger.info("Transformed data saved successfully.")
     except Exception as e:
         logger.error(f"Error saving transformed data: {e}")
-
 
 # Function to print monitoring results
 def print_monitoring_results():
@@ -201,8 +148,7 @@ def print_monitoring_results():
     logger.info(f"Clean Successes: {metrics['clean_success']}")
     logger.info(f"Transform Successes: {metrics['transform_success']}")
 
-
-# Functions to Plot visualizations
+# Functions to plot visualizations
 def plot_success_rates(metrics):
     categories = ['Load Success', 'Clean Success', 'Transform Success']
     success_counts = [metrics['load_success'], metrics['clean_success'], metrics['transform_success']]
@@ -210,17 +156,36 @@ def plot_success_rates(metrics):
     plt.bar(categories, success_counts, color=['blue', 'orange', 'green'])
     plt.title('Success Rates of ETL Pipeline')
     plt.ylabel('Number of Successful Processes')
-    
+
     success_rates_path = 'reports/success_rates.png'
-    # Create the 'reports' directory if it doesn't exist
     os.makedirs(os.path.dirname(success_rates_path), exist_ok=True)
 
-    plt.savefig(success_rates_path) # Save the plot
-    plt.show()  # Debugging: Verify plot display
-    plt.close() # Close the plot to free memory
+    try:
+        plt.savefig(success_rates_path)
+        plt.show()
+    except Exception as e:
+        logger.error(f"Error displaying/saving success rates plot: {e}")
+    finally:
+        plt.close()
+    
     return success_rates_path
 
 def plot_trends(metrics):
+    # Check for consistency in lengths
+    if not metrics['dates'] or not metrics['load_time'] or not metrics['clean_time'] or not metrics['transform_time']:
+        logger.error("One or more metrics lists are empty, cannot plot trends.")
+        return None
+
+    if len(metrics['dates']) != len(metrics['load_time']):
+        logger.error("Mismatch in lengths: dates and load_time.")
+        return None
+    if len(metrics['dates']) != len(metrics['clean_time']):
+        logger.error("Mismatch in lengths: dates and clean_time.")
+        return None
+    if len(metrics['dates']) != len(metrics['transform_time']):
+        logger.error("Mismatch in lengths: dates and transform_time.")
+        return None
+
     plt.plot(metrics['dates'], metrics['load_time'], label='Load Time', marker='o')
     plt.plot(metrics['dates'], metrics['clean_time'], label='Clean Time', marker='o')
     plt.plot(metrics['dates'], metrics['transform_time'], label='Transform Time', marker='o')
@@ -231,12 +196,20 @@ def plot_trends(metrics):
     plt.legend()
 
     trends_path = 'reports/trends.png'
-    plt.savefig(trends_path)
-    plt.show()  # Debugging: Verify plot display
-    plt.close()
+    os.makedirs(os.path.dirname(trends_path), exist_ok=True)
+
+    try:
+        plt.savefig(trends_path)
+        plt.show()
+    except Exception as e:
+        logger.error(f"Error displaying/saving trends plot: {e}")
+    finally:
+        plt.close()
+
     return trends_path
 
-# Generating HMTL report
+
+# Generating HTML report
 def generate_report(report_filepath, success_rates_path, trends_path):
     os.makedirs(os.path.dirname(report_filepath), exist_ok=True)
     with open(report_filepath, 'w') as f:
@@ -247,60 +220,40 @@ def generate_report(report_filepath, success_rates_path, trends_path):
         f.write(f"<img src='{trends_path}' alt='Trends'>\n")
         f.write("</body></html>")
 
-
-
 def main(input_filepath, cleaned_filepath, transformed_filepath, report_filepath):
-    # Load the initial data
-    start_time = time.time()  # Start timer for loading
+    start_time = time.time()
     df = load_data(input_filepath)
     if df is not None:
-        load_time = time.time() - start_time  # Calculate load time
-        metrics['load_time'].append(load_time)  # Append load time
-        metrics['dates'].append(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))  # Capture load date
+        metrics['load_time'].append(time.time() - start_time)
+        metrics['dates'].append(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
-        # Clean the data
-        start_time = time.time()  # Start timer for cleaning
         cleaned_df = clean_data(df)
         
-        # Validate cleaned data
         if validate_cleaned_data(cleaned_df):
-            # Save cleaned data
             save_cleaned_data(cleaned_df, cleaned_filepath)
-            clean_time = time.time() - start_time  # Calculate clean time
-            metrics['clean_time'].append(clean_time)  # Append clean time
-            metrics['dates'].append(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))  # Capture clean date
-            
-            # Load cleaned data for transformation
+            metrics['clean_time'].append(time.time() - start_time)
+            metrics['dates'].append(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+
             cleaned_df = load_data(cleaned_filepath)
             if cleaned_df is not None:
-                # Transform the data
-                start_time = time.time()  # Start timer for transformation
                 transformed_df = transform_data(cleaned_df)
                 
-                # Validate transformed data
                 if validate_transformed_data(transformed_df):
-                    # Save the transformed data
                     save_transformed_data(transformed_df, transformed_filepath)
-                    transform_time = time.time() - start_time  # Calculate transform time
-                    metrics['transform_time'].append(transform_time)  # Append transform time
-                    metrics['dates'].append(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))  # Capture transform date
+                    metrics['transform_time'].append(time.time() - start_time)
+                    metrics['dates'].append(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
-    # Print monitoring results
     print_monitoring_results()
 
-    # Plot and generate report
     success_rates_path = plot_success_rates(metrics)
     trends_path = plot_trends(metrics)
     generate_report(report_filepath, success_rates_path, trends_path)
     logger.info("ETL process and report generation completed.")
 
-
 if __name__ == "__main__":
-    # Define file paths
     input_filepath = 'data/retail_sales_dataset.csv'
     cleaned_filepath = 'cleaned_data.pkl'
     transformed_filepath = 'transform_data.pkl'
-    report_filepath = 'etl_report.html'
+    report_filepath = 'reports/etl_report.html'
     
-    # Run the data pipeline
     main(input_filepath, cleaned_filepath, transformed_filepath, report_filepath)

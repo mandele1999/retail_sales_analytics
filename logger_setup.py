@@ -20,3 +20,4 @@ console_handler.setFormatter(formatter)
 # Adding handlers to the logger
 logger.addHandler(file_handler)
 logger.addHandler(console_handler)
+

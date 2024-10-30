@@ -180,3 +180,67 @@
 2024-10-30 17:05:47,514 - INFO - Load Successes: 2
 2024-10-30 17:05:47,515 - INFO - Clean Successes: 1
 2024-10-30 17:05:47,515 - INFO - Transform Successes: 1
+2024-10-30 19:34:03,770 - INFO - Data loaded successfully.
+2024-10-30 19:34:03,781 - INFO - Data cleaned successfully.
+2024-10-30 19:34:03,783 - INFO - Cleaned data validation passed.
+2024-10-30 19:34:03,785 - INFO - Cleaned data saved successfully.
+2024-10-30 19:34:03,799 - INFO - Data loaded successfully.
+2024-10-30 19:34:03,808 - INFO - Data transformed successfully.
+2024-10-30 19:34:03,809 - INFO - Transformed data validation passed.
+2024-10-30 19:34:03,812 - INFO - Transformed data saved successfully.
+2024-10-30 19:34:03,813 - INFO - Monitoring Results:
+2024-10-30 19:34:03,813 - INFO - Load Times: [0.007902145385742188, 0.007902145385742188, 0.014992713928222656]
+2024-10-30 19:34:03,813 - INFO - Clean Times: [0.009998083114624023, 0.014996528625488281]
+2024-10-30 19:34:03,814 - INFO - Transform Times: [0.0070116519927978516, 0.011990785598754883]
+2024-10-30 19:34:03,814 - INFO - Load Successes: 2
+2024-10-30 19:34:03,815 - INFO - Clean Successes: 1
+2024-10-30 19:34:03,817 - INFO - Transform Successes: 1
+2024-10-30 19:43:46,835 - INFO - Data loaded successfully.
+2024-10-30 19:43:46,846 - INFO - Data cleaned successfully.
+2024-10-30 19:43:46,849 - INFO - Cleaned data validation passed.
+2024-10-30 19:43:46,852 - INFO - Cleaned data saved successfully.
+2024-10-30 19:43:46,865 - INFO - Data loaded successfully.
+2024-10-30 19:43:46,870 - INFO - Data transformed successfully.
+2024-10-30 19:43:46,872 - INFO - Transformed data validation passed.
+2024-10-30 19:43:46,874 - INFO - Transformed data saved successfully.
+2024-10-30 19:43:46,875 - INFO - Monitoring Results:
+2024-10-30 19:43:46,876 - INFO - Load Times: [0.007980585098266602, 0.007980585098266602, 0.011993169784545898]
+2024-10-30 19:43:46,876 - INFO - Clean Times: [0.010994672775268555, 0.024971961975097656]
+2024-10-30 19:43:46,877 - INFO - Transform Times: [0.0059964656829833984, 0.04697895050048828]
+2024-10-30 19:43:46,877 - INFO - Load Successes: 2
+2024-10-30 19:43:46,878 - INFO - Clean Successes: 1
+2024-10-30 19:43:46,878 - INFO - Transform Successes: 1
+2024-10-30 19:49:23,956 - INFO - Data loaded successfully.
+2024-10-30 19:49:23,968 - INFO - Data cleaned successfully.
+2024-10-30 19:49:23,970 - INFO - Cleaned data validation passed.
+2024-10-30 19:49:23,972 - INFO - Cleaned data saved successfully.
+2024-10-30 19:49:23,984 - INFO - Data loaded successfully.
+2024-10-30 19:49:23,990 - INFO - Data transformed successfully.
+2024-10-30 19:49:23,991 - INFO - Transformed data validation passed.
+2024-10-30 19:49:23,995 - INFO - Transformed data saved successfully.
+2024-10-30 19:49:23,998 - INFO - Monitoring Results:
+2024-10-30 19:49:23,999 - INFO - Load Times: [0.007001399993896484, 0.007001399993896484, 0.011992216110229492]
+2024-10-30 19:49:23,999 - INFO - Clean Times: [0.011973142623901367, 0.02197432518005371]
+2024-10-30 19:49:23,999 - INFO - Transform Times: [0.006998538970947266, 0.04795956611633301]
+2024-10-30 19:49:24,000 - INFO - Load Successes: 2
+2024-10-30 19:49:24,000 - INFO - Clean Successes: 1
+2024-10-30 19:49:24,001 - INFO - Transform Successes: 1
+2024-10-30 19:49:26,427 - ERROR - Mismatch in lengths: dates and clean_time.
+2024-10-30 19:49:26,477 - INFO - ETL process and report generation completed.
+2024-10-30 20:08:50,922 - INFO - Data loaded successfully.
+2024-10-30 20:08:50,935 - INFO - Data cleaned successfully.
+2024-10-30 20:08:50,935 - INFO - Cleaned data validation passed.
+2024-10-30 20:08:50,937 - INFO - Cleaned data saved successfully.
+2024-10-30 20:08:50,950 - INFO - Data loaded successfully.
+2024-10-30 20:08:50,955 - INFO - Data transformed successfully.
+2024-10-30 20:08:50,956 - INFO - Transformed data validation passed.
+2024-10-30 20:08:50,960 - INFO - Transformed data saved successfully.
+2024-10-30 20:08:50,960 - INFO - Monitoring Results:
+2024-10-30 20:08:50,961 - INFO - Load Times: [0.00797581672668457, 0.00797581672668457, 0.011994361877441406]
+2024-10-30 20:08:50,961 - INFO - Clean Times: [0.011014938354492188, 0.022966384887695312]
+2024-10-30 20:08:50,961 - INFO - Transform Times: [0.005887269973754883, 0.04484891891479492]
+2024-10-30 20:08:50,962 - INFO - Load Successes: 2
+2024-10-30 20:08:50,962 - INFO - Clean Successes: 1
+2024-10-30 20:08:50,962 - INFO - Transform Successes: 1
+2024-10-30 20:08:54,182 - ERROR - Mismatch in lengths: dates and clean_time.
+2024-10-30 20:08:54,188 - INFO - ETL process and report generation completed.
