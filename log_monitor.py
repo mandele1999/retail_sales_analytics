@@ -47,6 +47,17 @@ def clean_data(df):
 
         # Ensure correct data types
         # (Same cleaning code as before)
+        df['Transaction ID'] = df['Transaction ID'].astype(int)
+        df['Date'] = pd.to_datetime(df['Date'])
+        df['Customer ID'] = df['Customer ID'].astype(str)
+        df['Gender'] = df['Gender'].astype('category')
+        df['Product Category'] = df['Product Category'].astype('category')
+        df['Quantity'] = df['Quantity'].astype(int)
+        df['Price per Unit'] = df['Price per Unit'].astype(float)
+        df['Total Amount'] = df['Total Amount'].astype(float)
+
+        # Value constraints
+        df = df[(df['Quantity'] > 0) & (df['Price per Unit'] > 0)]
 
         logger.info("Data cleaned successfully.")
         metrics['clean_success'] += 1
@@ -55,6 +66,45 @@ def clean_data(df):
     finally:
         metrics['clean_time'].append(time.time() - start_time)  # Log clean time
         return df
+    
+# Function to validate cleaned data
+def validate_cleaned_data(df):
+    """
+    Validates the cleaned data to ensure it meets necessary conditions.
+
+    Args:
+    - df (DataFrame): The cleaned DataFrame.
+
+    Returns:
+    - bool: True if validation passes, False otherwise.
+    """
+    try:
+        # Check data types
+        assert df['Transaction ID'].dtype == int, "Transaction Id should be integer"
+        assert pd.api.types.is_datetime64_any_dtype(df['Date']), "Date should be datetime"
+        assert df['Quantity'].min() > 0, "Quantity should be positive"
+        assert df['Price per Unit'].min() > 0, "Price per Unit should be positive"
+        
+        logger.info("Cleaned data validation passed.")
+        return True
+    except AssertionError as e:
+        logger.error(f"Validation failed: {e}")
+        return False
+
+# Function to save cleaned data
+def save_cleaned_data(df, cleaned_filepath):
+    """
+    Save the cleaned data to a specified file path.
+
+    Args:
+    - df (DataFrame): The DataFrame to save.
+    - cleaned_filepath (str): Path to save the cleaned data.
+    """
+    try:
+        df.to_pickle(cleaned_filepath)
+        logger.info("Cleaned data saved successfully.")
+    except Exception as e:
+        logger.error(f"Error saving cleaned data: {e}")    
 
 # Function for transforming the data
 def transform_data(df):
@@ -64,6 +114,25 @@ def transform_data(df):
         return None
     try:
         # (Transformation code as before)
+        # Create a Day of Week column
+        df['Day of Week'] = df['Date'].dt.day_name()
+        # Example transformation: Add a 'Season' column based on 'Date'
+        df['Month'] = df['Date'].dt.month
+
+        def get_season(month):
+            if month in [12, 1, 2]:
+                return 'Winter'
+            elif month in [3, 4, 5]:
+                return 'Spring'
+            elif month in [6, 7, 8]:
+                return 'Summer'
+            else:
+                return 'Fall'
+
+        df['Season'] = df['Month'].apply(get_season)
+
+        # Add a derived column, Revenue
+        df['Revenue'] = df['Quantity'] * df['Price per Unit']        
 
         logger.info("Data transformed successfully.")
         metrics['transform_success'] += 1
@@ -72,6 +141,47 @@ def transform_data(df):
     finally:
         metrics['transform_time'].append(time.time() - start_time)  # Log transform time
         return df
+
+# Function to validate transformed data
+def validate_transformed_data(df):
+    """
+    Validates the transformed data to ensure transformations were successful.
+
+    Args:
+    - df (DataFrame): The transformed DataFrame.
+
+    Returns:
+    - bool: True if validation passes, False otherwise.
+    """
+    try:
+        # Check that 'Revenue' and 'Season' columns are present
+        assert 'Revenue' in df.columns, "Revenue column is missing"
+        assert 'Season' in df.columns, "Season column is missing"
+        
+        # Check that 'Revenue' values are positive
+        assert df['Revenue'].min() >= 0, "Revenue should be non-negative"
+        
+        logger.info("Transformed data validation passed.")
+        return True
+    except AssertionError as e:
+        logger.error(f"Validation failed: {e}")
+        return False
+
+# Function to save transformed data
+def save_transformed_data(df, transformed_filepath):
+    """
+    Save the transformed data to a specified file path.
+
+    Args:
+    - df (DataFrame): The DataFrame to save.
+    - transformed_filepath (str): Path to save the transformed data.
+    """
+    try:
+        df.to_pickle(transformed_filepath)
+        logger.info("Transformed data saved successfully.")
+    except Exception as e:
+        logger.error(f"Error saving transformed data: {e}")
+
 
 # Function to print monitoring results
 def print_monitoring_results():
