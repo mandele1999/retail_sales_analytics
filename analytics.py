@@ -171,21 +171,24 @@ def plot_success_rates(metrics):
     return success_rates_path
 
 def plot_trends(metrics):
+    # Check if metrics lists are empty
+    if not metrics['dates']:
+        logger.error("The 'dates' list is empty, cannot plot trends.")
+        return None
+
     # Check for consistency in lengths
-    if not metrics['dates'] or not metrics['load_time'] or not metrics['clean_time'] or not metrics['transform_time']:
-        logger.error("One or more metrics lists are empty, cannot plot trends.")
-        return None
+    metrics_lengths = {
+        'load_time': len(metrics['load_time']),
+        'clean_time': len(metrics['clean_time']),
+        'transform_time': len(metrics['transform_time']),
+    }
 
-    if len(metrics['dates']) != len(metrics['load_time']):
-        logger.error("Mismatch in lengths: dates and load_time.")
-        return None
-    if len(metrics['dates']) != len(metrics['clean_time']):
-        logger.error("Mismatch in lengths: dates and clean_time.")
-        return None
-    if len(metrics['dates']) != len(metrics['transform_time']):
-        logger.error("Mismatch in lengths: dates and transform_time.")
-        return None
+    for metric, length in metrics_lengths.items():
+        if length != len(metrics['dates']):
+            logger.error(f"Mismatch in lengths: {metric} has {length} entries but dates has {len(metrics['dates'])}.")
+            return None
 
+    # Proceed with plotting
     plt.plot(metrics['dates'], metrics['load_time'], label='Load Time', marker='o')
     plt.plot(metrics['dates'], metrics['clean_time'], label='Clean Time', marker='o')
     plt.plot(metrics['dates'], metrics['transform_time'], label='Transform Time', marker='o')
@@ -225,14 +228,14 @@ def main(input_filepath, cleaned_filepath, transformed_filepath, report_filepath
     df = load_data(input_filepath)
     if df is not None:
         metrics['load_time'].append(time.time() - start_time)
-        metrics['dates'].append(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+        metrics['dates'].append(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))  # Date after load success
 
         cleaned_df = clean_data(df)
         
         if validate_cleaned_data(cleaned_df):
             save_cleaned_data(cleaned_df, cleaned_filepath)
-            metrics['clean_time'].append(time.time() - start_time)
-            metrics['dates'].append(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+            metrics['clean_time'].append(time.time() - start_time)  # Append clean time
+            metrics['dates'].append(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))  # Date after clean success
 
             cleaned_df = load_data(cleaned_filepath)
             if cleaned_df is not None:
@@ -240,8 +243,24 @@ def main(input_filepath, cleaned_filepath, transformed_filepath, report_filepath
                 
                 if validate_transformed_data(transformed_df):
                     save_transformed_data(transformed_df, transformed_filepath)
-                    metrics['transform_time'].append(time.time() - start_time)
-                    metrics['dates'].append(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+                    metrics['transform_time'].append(time.time() - start_time)  # Append transform time
+                    metrics['dates'].append(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))  # Date after transform success
+                else:
+                    logger.error("Transformed data validation failed.")
+                    metrics['transform_time'].append(None)  # Append None for failed transform
+                    metrics['dates'].append(None)  # Append None for failed transform
+            else:
+                logger.error("Failed to load cleaned data.")
+                metrics['transform_time'].append(None)  # Append None for failed load
+                metrics['dates'].append(None)  # Append None for failed load
+        else:
+            logger.error("Cleaned data validation failed.")
+            metrics['clean_time'].append(None)  # Append None for failed clean
+            metrics['dates'].append(None)  # Append None for failed clean
+    else:
+        logger.error("Failed to load initial data.")
+        metrics['load_time'].append(None)  # Append None for failed load
+        metrics['dates'].append(None)  # Append None for failed load
 
     print_monitoring_results()
 
@@ -249,6 +268,7 @@ def main(input_filepath, cleaned_filepath, transformed_filepath, report_filepath
     trends_path = plot_trends(metrics)
     generate_report(report_filepath, success_rates_path, trends_path)
     logger.info("ETL process and report generation completed.")
+
 
 if __name__ == "__main__":
     input_filepath = 'data/retail_sales_dataset.csv'
