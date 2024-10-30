@@ -244,3 +244,103 @@
 2024-10-30 20:08:50,962 - INFO - Transform Successes: 1
 2024-10-30 20:08:54,182 - ERROR - Mismatch in lengths: dates and clean_time.
 2024-10-30 20:08:54,188 - INFO - ETL process and report generation completed.
+2024-10-30 20:16:03,744 - INFO - Data loaded successfully.
+2024-10-30 20:16:03,755 - INFO - Data cleaned successfully.
+2024-10-30 20:16:03,756 - INFO - Cleaned data validation passed.
+2024-10-30 20:16:03,758 - INFO - Cleaned data saved successfully.
+2024-10-30 20:16:03,770 - INFO - Data loaded successfully.
+2024-10-30 20:16:03,775 - INFO - Data transformed successfully.
+2024-10-30 20:16:03,777 - INFO - Transformed data validation passed.
+2024-10-30 20:16:03,780 - INFO - Transformed data saved successfully.
+2024-10-30 20:16:03,780 - INFO - Monitoring Results:
+2024-10-30 20:16:03,781 - INFO - Load Times: [0.008101940155029297, 0.008101940155029297, 0.011993646621704102]
+2024-10-30 20:16:03,781 - INFO - Clean Times: [0.010996341705322266, 0.02209639549255371]
+2024-10-30 20:16:03,782 - INFO - Transform Times: [0.004996776580810547, 0.04309892654418945]
+2024-10-30 20:16:03,782 - INFO - Load Successes: 2
+2024-10-30 20:16:03,783 - INFO - Clean Successes: 1
+2024-10-30 20:16:03,783 - INFO - Transform Successes: 1
+2024-10-30 20:16:06,863 - ERROR - Mismatch in lengths: clean_time has 2 entries but dates has 3.
+2024-10-30 20:16:06,881 - INFO - ETL process and report generation completed.
+2024-10-30 20:22:31,225 - INFO - Data loaded successfully.
+2024-10-30 20:22:31,234 - INFO - Data cleaned successfully.
+2024-10-30 20:22:31,236 - INFO - Cleaned data validation passed.
+2024-10-30 20:22:31,238 - INFO - Cleaned data saved successfully.
+2024-10-30 20:22:31,250 - INFO - Data loaded successfully.
+2024-10-30 20:22:31,256 - INFO - Data transformed successfully.
+2024-10-30 20:22:31,257 - INFO - Transformed data validation passed.
+2024-10-30 20:22:31,261 - INFO - Transformed data saved successfully.
+2024-10-30 20:22:31,261 - INFO - Monitoring Results:
+2024-10-30 20:22:31,262 - INFO - Load Times: [0.008994817733764648, 0.008994817733764648, 0.011614799499511719]
+2024-10-30 20:22:31,262 - INFO - Clean Times: [0.009979963302612305, 0.02297377586364746]
+2024-10-30 20:22:31,262 - INFO - Transform Times: [0.006018877029418945, 0.04460000991821289]
+2024-10-30 20:22:31,263 - INFO - Load Successes: 3
+2024-10-30 20:22:31,263 - INFO - Clean Successes: 2
+2024-10-30 20:22:31,263 - INFO - Transform Successes: 2
+2024-10-30 20:22:38,891 - ERROR - Mismatch in lengths: load_time has 3 entries but dates has 1.
+2024-10-30 20:22:38,933 - INFO - ETL process and report generation completed.
+2024-10-30 20:25:02,526 - INFO - Data loaded successfully.
+2024-10-30 20:25:02,538 - INFO - Data cleaned successfully.
+2024-10-30 20:25:02,539 - INFO - Cleaned data validation passed.
+2024-10-30 20:25:02,541 - INFO - Cleaned data saved successfully.
+2024-10-30 20:25:02,554 - INFO - Data loaded successfully.
+2024-10-30 20:25:02,561 - INFO - Data transformed successfully.
+2024-10-30 20:25:02,562 - INFO - Transformed data validation passed.
+2024-10-30 20:25:02,564 - INFO - Transformed data saved successfully.
+2024-10-30 20:25:02,564 - INFO - Monitoring Results:
+2024-10-30 20:25:02,565 - INFO - Load Times: [0.009428024291992188, 0.009428024291992188, 0.012994766235351562]
+2024-10-30 20:25:02,565 - INFO - Clean Times: [0.013260841369628906, 0.024433374404907227]
+2024-10-30 20:25:02,565 - INFO - Transform Times: [0.008007526397705078, 0.04744076728820801]
+2024-10-30 20:25:02,566 - INFO - Load Successes: 2
+2024-10-30 20:25:02,566 - INFO - Clean Successes: 1
+2024-10-30 20:25:02,567 - INFO - Transform Successes: 1
+2024-10-30 20:25:12,214 - ERROR - Mismatch in lengths: clean_time has 2 entries but dates has 3.
+2024-10-30 20:25:12,230 - INFO - ETL process and report generation completed.
+2024-10-30 20:26:40,793 - INFO - Data loaded successfully.
+2024-10-30 20:26:40,805 - INFO - Data cleaned successfully.
+2024-10-30 20:26:40,806 - INFO - Cleaned data validation passed.
+2024-10-30 20:26:40,808 - INFO - Cleaned data saved successfully.
+2024-10-30 20:26:40,821 - INFO - Data loaded successfully.
+2024-10-30 20:26:40,826 - INFO - Data transformed successfully.
+2024-10-30 20:26:40,826 - INFO - Transformed data validation passed.
+2024-10-30 20:26:40,829 - INFO - Transformed data saved successfully.
+2024-10-30 20:26:40,829 - INFO - Monitoring Results:
+2024-10-30 20:26:40,830 - INFO - Load Times: [0.007994651794433594, 0.007994651794433594, 0.01299428939819336]
+2024-10-30 20:26:40,830 - INFO - Clean Times: [0.010994434356689453, 0.021987199783325195]
+2024-10-30 20:26:40,830 - INFO - Transform Times: [0.004996299743652344, 0.04297471046447754]
+2024-10-30 20:26:40,830 - INFO - Load Successes: 2
+2024-10-30 20:26:40,831 - INFO - Clean Successes: 1
+2024-10-30 20:26:40,831 - INFO - Transform Successes: 1
+2024-10-30 20:26:44,164 - ERROR - Mismatch in lengths: clean_time has 2 entries but dates has 3.
+2024-10-30 20:26:44,248 - INFO - ETL process and report generation completed.
+2024-10-30 20:30:11,240 - INFO - Data loaded successfully.
+2024-10-30 20:30:11,254 - INFO - Data cleaned successfully.
+2024-10-30 20:30:11,255 - INFO - Cleaned data validation passed.
+2024-10-30 20:30:11,257 - INFO - Cleaned data saved successfully.
+2024-10-30 20:30:11,262 - INFO - Data transformed successfully.
+2024-10-30 20:30:11,263 - INFO - Transformed data validation passed.
+2024-10-30 20:30:11,265 - INFO - Transformed data saved successfully.
+2024-10-30 20:30:11,266 - INFO - Monitoring Results:
+2024-10-30 20:30:11,266 - INFO - Load Times: [0.008983850479125977]
+2024-10-30 20:30:11,266 - INFO - Clean Times: [0.0139923095703125]
+2024-10-30 20:30:11,266 - INFO - Transform Times: [0.005015373229980469]
+2024-10-30 20:30:11,268 - INFO - Load Successes: 1
+2024-10-30 20:30:11,268 - INFO - Clean Successes: 1
+2024-10-30 20:30:11,269 - INFO - Transform Successes: 1
+2024-10-30 20:30:11,270 - ERROR - Mismatch in lengths: clean_time has 1 entries but dates has 3.
+2024-10-30 20:30:49,228 - INFO - Data loaded successfully.
+2024-10-30 20:30:49,243 - INFO - Data cleaned successfully.
+2024-10-30 20:30:49,245 - INFO - Cleaned data validation passed.
+2024-10-30 20:30:49,247 - INFO - Cleaned data saved successfully.
+2024-10-30 20:30:49,260 - INFO - Data loaded successfully.
+2024-10-30 20:30:49,265 - INFO - Data transformed successfully.
+2024-10-30 20:30:49,266 - INFO - Transformed data validation passed.
+2024-10-30 20:30:49,271 - INFO - Transformed data saved successfully.
+2024-10-30 20:30:49,272 - INFO - Monitoring Results:
+2024-10-30 20:30:49,272 - INFO - Load Times: [0.00799560546875, 0.00799560546875, 0.013012409210205078]
+2024-10-30 20:30:49,273 - INFO - Clean Times: [0.014980316162109375, 0.025974750518798828]
+2024-10-30 20:30:49,273 - INFO - Transform Times: [0.0049974918365478516, 0.050960540771484375]
+2024-10-30 20:30:49,273 - INFO - Load Successes: 2
+2024-10-30 20:30:49,274 - INFO - Clean Successes: 1
+2024-10-30 20:30:49,274 - INFO - Transform Successes: 1
+2024-10-30 20:30:51,569 - ERROR - Mismatch in lengths: clean_time has 2 entries but dates has 3.
+2024-10-30 20:30:51,606 - INFO - ETL process and report generation completed.
