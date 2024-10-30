@@ -1,5 +1,6 @@
 import pandas as pd
 import os
+from logger_setup import logger  # Importing the configured logger
 
 # Function to load data
 def load_data(filepath):
